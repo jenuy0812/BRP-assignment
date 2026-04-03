@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API from "../axiosConfig";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -18,43 +19,32 @@ function RegisterPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match.");
+      alert("Passwords do not match");
       return;
     }
 
-    alert("Registration successful");
-    navigate("/");
+    try {
+      const { data } = await API.post("/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      alert("Registration successful");
+      navigate("/books");
+    } catch (error) {
+      alert(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#f4f6f8",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "420px",
-          background: "#fff",
-          padding: "30px",
-          borderRadius: "12px",
-          boxShadow: "0 0 12px rgba(0,0,0,0.1)",
-        }}
-      >
+    <div style={pageStyle}>
+      <div style={cardStyle}>
         <h1 style={{ textAlign: "center", marginBottom: "10px" }}>
           Book Recommendation Platform
         </h1>
@@ -98,21 +88,36 @@ function RegisterPage() {
             style={inputStyle}
           />
 
-          <button type="submit" style={buttonStyle}>
+          <button type="submit" style={registerButtonStyle}>
             Register
           </button>
         </form>
 
         <p style={{ textAlign: "center", marginTop: "20px" }}>
           Already have an account?{" "}
-          <Link to="/" style={linkStyle}>
-            Login
-          </Link>
+          <Link to="/">Login</Link>
         </p>
       </div>
     </div>
   );
 }
+
+const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "#f4f6f8",
+};
+
+const cardStyle = {
+  width: "100%",
+  maxWidth: "420px",
+  background: "#fff",
+  padding: "30px",
+  borderRadius: "12px",
+  boxShadow: "0 0 12px rgba(0,0,0,0.1)",
+};
 
 const inputStyle = {
   width: "100%",
@@ -123,7 +128,7 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 
-const buttonStyle = {
+const registerButtonStyle = {
   width: "100%",
   padding: "12px",
   background: "#28a745",
@@ -132,11 +137,6 @@ const buttonStyle = {
   borderRadius: "8px",
   cursor: "pointer",
   fontSize: "16px",
-};
-
-const linkStyle = {
-  color: "#007bff",
-  textDecoration: "none",
 };
 
 export default RegisterPage;

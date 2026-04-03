@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API from "../axiosConfig";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -16,48 +17,33 @@ function LoginPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
-      alert("Please fill in all fields.");
-      return;
-    }
+    try {
+      const { data } = await API.post("/auth/login", formData);
 
-    // temporary demo login
-    if (formData.email === "admin@gmail.com" && formData.password === "123456") {
+      // save user + token
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
       alert("Login successful");
+
       navigate("/books");
-    } else {
-      alert("Invalid email or password");
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#f4f6f8",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "420px",
-          background: "#fff",
-          padding: "30px",
-          borderRadius: "12px",
-          boxShadow: "0 0 12px rgba(0,0,0,0.1)",
-        }}
-      >
+    <div style={pageStyle}>
+      <div style={cardStyle}>
         <h1 style={{ textAlign: "center", marginBottom: "10px" }}>
           Book Recommendation Platform
         </h1>
 
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Login</h2>
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Login
+        </h2>
 
         <form onSubmit={handleSubmit}>
           <input
@@ -99,6 +85,24 @@ function LoginPage() {
     </div>
   );
 }
+
+// 🎨 Styles
+const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "#f4f6f8",
+};
+
+const cardStyle = {
+  width: "100%",
+  maxWidth: "420px",
+  background: "#fff",
+  padding: "30px",
+  borderRadius: "12px",
+  boxShadow: "0 0 12px rgba(0,0,0,0.1)",
+};
 
 const inputStyle = {
   width: "100%",

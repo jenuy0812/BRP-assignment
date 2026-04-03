@@ -17,25 +17,8 @@ function ForgotPasswordPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#f4f6f8",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "420px",
-          background: "#fff",
-          padding: "30px",
-          borderRadius: "12px",
-          boxShadow: "0 0 12px rgba(0,0,0,0.1)",
-        }}
-      >
+    <div style={pageStyle}>
+      <div style={cardStyle}>
         <h1 style={{ textAlign: "center", marginBottom: "10px" }}>
           Book Recommendation Platform
         </h1>
@@ -59,15 +42,29 @@ function ForgotPasswordPage() {
         </form>
 
         <p style={{ textAlign: "center", marginTop: "20px" }}>
-          Back to{" "}
-          <Link to="/" style={linkStyle}>
-            Login
-          </Link>
+          Back to <Link to="/">Login</Link>
         </p>
       </div>
     </div>
   );
 }
+
+const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "#f4f6f8",
+};
+
+const cardStyle = {
+  width: "100%",
+  maxWidth: "420px",
+  background: "#fff",
+  padding: "30px",
+  borderRadius: "12px",
+  boxShadow: "0 0 12px rgba(0,0,0,0.1)",
+};
 
 const inputStyle = {
   width: "100%",
@@ -87,11 +84,6 @@ const buttonStyle = {
   borderRadius: "8px",
   cursor: "pointer",
   fontSize: "16px",
-};
-
-const linkStyle = {
-  color: "#007bff",
-  textDecoration: "none",
 };
 
 export default ForgotPasswordPage;
