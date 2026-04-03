@@ -184,3 +184,15 @@ Notes
 Server runs on http://localhost:5000
 MongoDB Atlas is used for database connection
 Ensure .env file is correctly configured before running the project
+
+5. Backend verifies token before allowing access
+ Mocha is used as the test runner, Chai is used for assertions, and Sinon is used for mocking and spying on functions. The test cases verify application logic without requiring a database connection, ensuring reliability before deployment.
+
+
+ The test imports chai for assertions, sinon for mocking database calls, mongoose for database structure, and the Book model and controller. The database call is stubbed using sinon to simulate returning data without accessing the actual database.
+
+ The describe() block is used to group related test cases for the createBook function. The it() block defines an individual test case that verifies whether a book is successfully created. The request body is simulated, and the database save operation is mocked using Sinon to avoid real database interaction.
+
+ The test case uses the it() function to define a scenario where a new book is successfully created. A mock request object is used to simulate incoming HTTP data. Sinon is used to stub the database save operation, and Chai assertions verify that the correct response is returned.
+
+A mock book object is created to simulate the expected database output. The Book.create method is stubbed using Sinon to prevent actual database interaction. A mock response object is used to capture status and JSON output. The test verifies that the function correctly creates a book and returns the expected response.
