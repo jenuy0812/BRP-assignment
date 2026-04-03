@@ -196,3 +196,9 @@ Ensure .env file is correctly configured before running the project
  The test case uses the it() function to define a scenario where a new book is successfully created. A mock request object is used to simulate incoming HTTP data. Sinon is used to stub the database save operation, and Chai assertions verify that the correct response is returned.
 
 A mock book object is created to simulate the expected database output. The Book.create method is stubbed using Sinon to prevent actual database interaction. A mock response object is used to capture status and JSON output. The test verifies that the function correctly creates a book and returns the expected response.
+
+Two test cases were implemented for the createBook function. The first test verifies successful book creation by mocking the database save operation and checking that a 201 status and correct response are returned. The second test simulates a database error using Sinon and verifies that the application correctly returns a 500 status with an error message. Chai is used for assertions, Mocha for test execution, and Sinon for mocking database interactions.
+
+The test cases were executed using the command "npm test" in the backend directory. The results showed that all test cases passed successfully, verifying that the application logic works correctly.
+
+Multiple test cases were implemented to verify CRUD operations, including create, read, update, and delete functionalities. Each test uses Sinon to mock database interactions and Chai to validate responses, ensuring correct system behavior under both success and error conditions.
