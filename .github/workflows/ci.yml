@@ -26,6 +26,12 @@ jobs:
         with:
           node-version: 20
 
+      - name: Show backend files
+        run: |
+          pwd
+          ls
+          ls test
+
       - name: Install dependencies
         run: npm install
 
