@@ -102,4 +102,3 @@ The application includes a secure authentication system implemented using:
 2. User logs in → receives JWT token
 3. Token stored in localStorage
 4. Token sent with every API request
-5. Backend verifies token before allowing access
