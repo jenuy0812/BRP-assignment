@@ -202,3 +202,5 @@ Two test cases were implemented for the createBook function. The first test veri
 The test cases were executed using the command "npm test" in the backend directory. The results showed that all test cases passed successfully, verifying that the application logic works correctly.
 
 Multiple test cases were implemented to verify CRUD operations, including create, read, update, and delete functionalities. Each test uses Sinon to mock database interactions and Chai to validate responses, ensuring correct system behavior under both success and error conditions.
+
+A CI workflow was configured using a YAML file inside .github/workflows/ci.yml. The workflow is triggered automatically on push and pull request events. It checks out the repository, sets up a Node.js environment, installs backend dependencies, and runs automated backend test cases using npm test. This ensures continuous integration and validates the application code automatically.

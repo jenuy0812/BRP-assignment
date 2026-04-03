@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - taskfeatures
 
 jobs:
   test:
@@ -17,7 +18,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
